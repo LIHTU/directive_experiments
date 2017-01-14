@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+		<title>Angular Exercise</title>
+    <link data-require="bootstrap@*" data-semver="3.2.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script data-require="bootstrap@*" data-semver="3.2.0" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js" data-semver="1.5.8" data-require="angular.js@*"></script>
+    <script data-require="angular-mocks@*" data-semver="1.5.8" src="https://code.angularjs.org/1.5.8/angular-mocks.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers.js"></script>
+	  <script src="show-date/show-date.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    See README.md for instruction.<br/>
+
+    <div ng-controller="dateCtrl">{{date | date:'longDate'}}</div>
+
+    <br/>
+    <br/>
+    <div ng-controller="myCtrl">
+
+	    <date-dir></date-dir>
+
+			<input ng-model="query" type="text" class="form-control" placeholder="Search" /><br/>
+
+			<table border="1" cellspacing="0px" class="table table-bordered table-striped">
+				<tr>
+					<th>
+						Name
+					</th>
+					<th>
+						Actions
+					</th>
+				</tr>
+				<tr ng-repeat="user in users | filter:query">
+					<td>
+						<span ng-show="!user.editing">
+							{{user.name}}
+						</span>
+							<input ng-show="user.editing" type="text" ng-model="user.newName"/>
+					</td>
+					<td>
+						<span>
+					    <nobr>
+							  <button ng-show="!user.editing" ng-click="editUser(user)" class="btn btn-sm btn-primary">
+							    <i class="fa fa-pencil"></i>
+							    Edit
+							  </button>
+							  <button ng-show="!user.editing" ng-click="delete(user)" class="btn btn-sm btn-danger" ng-disabled="user.deleting">
+							    <i ng-show="user.deleting" class="fa fa-spinner fa-pulse"></i>
+							    <i ng-show="!user.deleting" class="fa fa-trash"></i>
+							    Delete
+							  </button>
+						    <button ng-show="user.editing" ng-click="updateUser(user)" class="btn btn-sm btn-success">
+							    <i ng-show="user.updating" class="fa fa-spinner fa-pulse"></i>
+							    <i ng-show="!user.updating" class="fa fa-save"></i>
+							    Save
+						    </button>
+						  </nobr>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" class="form-control" placeholder="Username" ng-model="newUserName"/>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-success" ng-click="addUser(newUserName)">
+						  <i ng-show="!addingUser" class="fa fa-plus"></i>
+							<i ng-show="addingUser" class="fa fa-refresh fa-spin"></i>
+						  Create
+						</button>
+					</td>
+				</tr>
+			</table><br/>
+			
+			<div ng-show="errors.length > 0" class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">Errors</h3>
+        </div>
+        <div class="panel-body">
+          <span ng-repeat="error in errors">
+					  {{error}}<br/>
+				  </span>
+        </div>
+      </div><br/>
+
+	    <date-dir></date-dir>
+	    <div ng-controller="dateCtrl">
+		    <h1>Date controller</h1>
+				<div style="color: red;">date:{{date | date:shortDate}}</div>
+	    </div>
+			
+			
+			
+			<!-- you should not need to edit below this line -->
+			
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Server's User List</h3>
+        </div>
+        <div class="panel-body">
+          <button ng-click="refreshServerUsers()" class="btn btn-default btn-sm pull-right" ng-disabled="refreshingServerUsers">
+            <i ng-show="refreshingServerUsers" class="fa fa-refresh fa-spin"></i>
+				    <i ng-show="!refreshingServerUsers" class="fa fa-refresh"></i>
+				    Refresh
+          </button>
+          
+          <ul ng-class="{gray: refreshingServerUsers}">
+            <li ng-repeat="serverUser in serverUsers">
+              {{serverUser}}
+            </li>
+          </ul>
+        </div>
+      </div>
+		</div>
+  </body>
+</html>
