@@ -19,7 +19,7 @@
     <script src="app.js"></script>
     <script src="controllers.js"></script>
     <script src="show-date-comp/show-date.js"></script>
-    <script src="to-rgb-dir/to-rgb.js"></script>
+    <script src="color-directive/to-rgb.js"></script>
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -66,6 +66,7 @@ See README.md for instruction.<br/>
 							    <i ng-show="!user.deleting" class="fa fa-trash"></i>
 							    Delete
 							  </button>
+
 						    <button ng-show="user.editing" ng-click="updateUser(user)" class="btn btn-sm btn-success">
 							    <i ng-show="user.updating" class="fa fa-spinner fa-pulse"></i>
 							    <i ng-show="!user.updating" class="fa fa-save"></i>
@@ -102,7 +103,6 @@ See README.md for instruction.<br/>
     </div>
     <br/>
 
-    <!--<date-dir></date-dir>-->
     <div ng-controller="dateCtrl">
         <h1>Date controller</h1>
         <div style="color: red;">date:{{date | date:shortDate}}</div>
